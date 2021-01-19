@@ -15,7 +15,7 @@ public class CropGrow {
 
 	@SubscribeEvent
 	public static void cropGrowPre(BlockEvent.CropGrowEvent.Pre event) {
-		FarmingModule.Agriculture.cropsRequireWater(event);
+		if (!ModConfig.Farming.Agriculture.allowCrops.contains(event.getState().getBlock().getRegistryName())) FarmingModule.Agriculture.cropsRequireWater(event);
 	}
 
 	@SubscribeEvent

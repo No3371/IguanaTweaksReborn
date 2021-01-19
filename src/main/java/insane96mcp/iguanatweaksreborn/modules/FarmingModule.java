@@ -1,6 +1,7 @@
 package insane96mcp.iguanatweaksreborn.modules;
 
 import insane96mcp.iguanatweaksreborn.IguanaTweaksReborn;
+import insane96mcp.iguanatweaksreborn.setup.Config;
 import insane96mcp.iguanatweaksreborn.setup.ModConfig;
 import insane96mcp.iguanatweaksreborn.setup.Strings;
 import insane96mcp.iguanatweaksreborn.utils.MCUtils;
@@ -262,7 +263,7 @@ public class FarmingModule {
 				chance = 1d / ModConfig.Farming.Agriculture.cropsGrowthMultiplier;
 			int skyLight = world.getLightFor(LightType.SKY, event.getPos());
 			if (skyLight < ModConfig.Farming.Agriculture.minSunlight)
-				if (ModConfig.Farming.Agriculture.noSunlightGrowthMultiplier == 0.0d)
+				if (ModConfig.Farming.Agriculture.noSunlightGrowthMultiplier == 0.0d && !ModConfig.Farming.Agriculture.allowCrops.contains(state.getBlock().getRegistryName()))
 					chance = -1d;
 				else
 					chance *= 1d / ModConfig.Farming.Agriculture.noSunlightGrowthMultiplier;

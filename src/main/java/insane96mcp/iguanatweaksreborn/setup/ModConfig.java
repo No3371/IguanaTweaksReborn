@@ -16,7 +16,9 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = IguanaTweaksReborn.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModConfig {
@@ -91,6 +93,7 @@ public class ModConfig {
             public static List<HoeCooldown> hoesCooldowns;
             public static boolean disableLowTierHoes;
             public static int hoesDamageOnUseMultiplier;
+            public static HashSet<ResourceLocation> allowCrops;
 
             public static void load() {
                 nerfedBonemeal = Config.COMMON.farming.agriculture.nerfedBonemeal.get();
@@ -112,6 +115,7 @@ public class ModConfig {
                 hoesCooldowns = parseHoesCooldowns(Config.COMMON.farming.agriculture.hoesCooldowns.get());
                 disableLowTierHoes = Config.COMMON.farming.agriculture.disableLowTierHoes.get();
                 hoesDamageOnUseMultiplier = Config.COMMON.farming.agriculture.hoesDamageOnUseMultiplier.get();
+                allowCrops = parseAlloedCrops(Config.COMMON.farming.agriculture.allowedCrops.get());
             }
 
             public static List<HoeCooldown> parseHoesCooldowns(List<? extends String> list) {
@@ -161,6 +165,14 @@ public class ModConfig {
                     super(item, tag);
                     this.cooldown = cooldown;
                 }
+            }
+
+            public static HashSet<ResourceLocation> parseAlloedCrops (List<? extends String> list) {
+                HashSet<ResourceLocation> crops = new HashSet<ResourceLocation>();
+                for (String line : list) {
+                    crops.add(new ResourceLocation(line));
+                }
+                return crops;
             }
         }
 

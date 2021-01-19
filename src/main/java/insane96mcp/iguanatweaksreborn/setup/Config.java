@@ -164,6 +164,7 @@ public class Config {
 				public ForgeConfigSpec.ConfigValue<List<? extends String>> hoesCooldowns;
 				public ForgeConfigSpec.ConfigValue<Boolean> disableLowTierHoes;
 				public ForgeConfigSpec.ConfigValue<Integer> hoesDamageOnUseMultiplier;
+				public ForgeConfigSpec.ConfigValue<List<? extends String>> allowedCrops;
 
 				public Agriculture(ForgeConfigSpec.Builder builder) {
 					builder.push(name);
@@ -226,6 +227,9 @@ public class Config {
 					hoesDamageOnUseMultiplier = builder
 							.comment("When an hoe is used it will lose this durability instead of 1. Set to 1 to disable")
 							.defineInRange("Hoes Damage On Use Multiplier", 3, 1, 1024);
+					allowedCrops = builder
+							.comment("A list of crop blocks the mod will always allow to grow. This is helpful for special crops like rice (planted in water) from FarmersDelight. The format is modid:itemid. You can even use tags as #modid:tag,ticks.")
+							.defineList("Allowed Crops", Arrays.asList(), o -> o instanceof String);
 					builder.pop();
 				}
 			}
